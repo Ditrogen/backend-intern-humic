@@ -10,11 +10,10 @@ const addLowonganMagang = async (req, res) => {
     benefit,
     durasi_awal,
     durasi_akhir,
-    status_lowongan,
     paid,
   } = req.body;
   const require = req.role;
-
+  const status_lowongan = "dibuka";
   try {
     if (require === "admin") {
       await lowonganMagangService.addlowonganMagang(
@@ -43,6 +42,7 @@ const addLowonganMagang = async (req, res) => {
     });
   }
 };
+
 const getAllLowonganMagang = async (req, res) => {
   try {
     const [lowonganMagang] = await lowonganMagangService.getAllLowonganMagang();
