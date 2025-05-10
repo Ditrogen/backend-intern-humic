@@ -35,7 +35,7 @@ const addLamaranMagang = async (req, res) => {
       portofolio_path,
       motivasi,
       relevant_skills,
-    }
+    };
 
     const result = await mahasiswaModel.addMahasiswa(
       nama_depan,
@@ -105,6 +105,11 @@ const uploadportofolio = async (portofolio) => {
 const getAllLamaranMagang = async (req, res) => {
   try {
     const [result] = await lamaranMagangModel.getAllLamaranMagang();
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "Tidak ada data lamaran magang",
+      });
+    }
     res.status(200).json({
       message: "Data lamaran magang berhasil diambil",
       data: result,
@@ -115,10 +120,61 @@ const getAllLamaranMagang = async (req, res) => {
       message: "Internal server error",
       error: error.message,
     });
-  } 
-}
+  }
+};
+
+const getLamaranByIDLowonganMagang = async (req, res) => {
+  const { id_lowongan_magang } = req.params;
+  try {
+    const [result] = await lamaranMagangModel.getLamaranByIDLowonganMagang(
+      id_lowongan_magang
+    );
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "Tidak ada data lamaran magang",
+      });
+    }
+    res.status(200).json({
+      message: "Data lamaran magang berhasil diambil",
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error fetching lamaran by ID lowongan magang:", error);
+    res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
+const updateStatusLamaran = async (req, res) => {
+  const { id_lamaran_magang } = req.params;
+  const { status } = req.body;
+  const role = req.role;
+
+  try {
+    if (role !== "admin") {
+      return res.status(404).json({
+        message: "Unauthorized access",
+      });
+    }
+
+    await lamaranMagangModel.updateStatusLamaran(id_lamaran_magang, status);
+    res.status(200).json({
+      message: "Status lamaran magang berhasil diperbarui",
+    });
+  } catch (error) {
+    console.error("Error updating status lamaran magang:", error);
+    res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
 
 module.exports = {
   addLamaranMagang,
   getAllLamaranMagang,
+  getLamaranByIDLowonganMagang,
+  updateStatusLamaran,
 };
