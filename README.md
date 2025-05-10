@@ -1,5 +1,15 @@
-<!-- # Intern Humic Batch 4 Project
-Website Penerimaan Magang
+
+
+# E-Commerce API Documentation
+
+[![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
+
+## Introduction
+Project intern HUMIC Batch 4 Website Penerimaan Magang
+
+
+**Framework:** [Express.js](https://expressjs.com/)  
+**Database:** MySQL
 
 
 ## Contributing
@@ -11,17 +21,8 @@ Website Penerimaan Magang
 |MUHAMMAD FARIED GUNAWAN|FRONT END DEVELOPER|
 |YOHANES JANUARICO ANDIAWAN|BACK END DEVELOPER |
 |REIHAN RAMADHANA ANWARI |BACK END DEVELOPER |
-|DELKANO MARZUKI BERUTU|MOBILE DEVELOPER | -->
+|DELKANO MARZUKI BERUTU|MOBILE DEVELOPER |
 
-# E-Commerce API Documentation
-
-[![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
-
-## Introduction
-Project intern HUMIC Batch 4 Website Penerimaan Magang
-
-**Framework:** [Express.js](https://expressjs.com/)  
-**Database:** MySQL
 
 ---
 
