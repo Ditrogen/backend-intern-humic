@@ -132,3 +132,6 @@ dist
 # docs directory
 src/docs/note.txt  
 template_db.sql  
+
+# upload files
+uploads/
