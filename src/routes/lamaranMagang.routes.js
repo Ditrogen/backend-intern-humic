@@ -13,5 +13,15 @@ router.post(
   lamaranMagangController.addLamaranMagang
 );
 router.get('/get', verifyJWT, lamaranMagangController.getAllLamaranMagang);
+router.get(
+  '/get/:id_lowongan_magang',
+  verifyJWT,
+  lamaranMagangController.getLamaranByIDLowonganMagang
+);
+router.patch(
+  '/update/:id_lamaran_magang',
+  verifyJWT,
+  lamaranMagangController.updateStatusLamaran
+);
 
 module.exports = router;
