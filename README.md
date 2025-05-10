@@ -27,7 +27,7 @@ Project intern HUMIC Batch 4 Website Penerimaan Magang
 
 ## Database Structure
 
-![Entity Relationship Diagram](https://github.com/Ditrogen/backend-intern-humic/main/src/docs/ERD.png)
+![Entity Relationship Diagram](https://raw.githubusercontent.com/Ditrogen/backend-intern-humic/main/src/docs/ERD.png)
 The database consists of the following tables:
 
 1. **mahasiswa**: Menyimpan data lengkap mahasiswa yang mendaftar magang..
