@@ -46,8 +46,17 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname)); // Rename file dengan timestamp
   },
   fileFilter: (req, file, cb) => {
-    if (file.mimetype !== "application/pdf") {
-      return cb(new Error("Hanya file PDF yang diizinkan!"), false);
+    if (
+        file.mimetype === 'image/jpeg' ||
+        file.mimetype === 'image/jpg' ||
+        file.mimetype === 'image/png' ||
+        file.mimetype === 'application/pdf' 
+    ) {
+        cb(null, true);
+    } else {
+        const errMsg = 'Hanya boleh upload gambar (jpeg, jpg, png)';
+        req.fileValidationError = errMsg;
+        return cb(new Error(errMsg), false);
     }
   },
 });
