@@ -9,6 +9,7 @@ const router = express.Router();
 const lamaranMagangController = require('../controllers/lamaranMagang.controller');
 const multer = require('../middleware/multer');
 const verifyJWT = require('../middleware/verifyJWT');
+const verifyRecaptcha = require('../middleware/recaptcha');
 
 /**
  * @swagger
@@ -79,6 +80,8 @@ const verifyJWT = require('../middleware/verifyJWT');
  *           schema:
  *             type: object
  *             properties:
+ *               recaptchaResponse:
+ *                 type: string
  *               nama_depan:
  *                 type: string
  *                 example: "Wowo"
@@ -122,11 +125,25 @@ const verifyJWT = require('../middleware/verifyJWT');
  *                   example: "Lamaran magang berhasil ditambahkan"
  *                 data:
  *                   $ref: '#/components/schemas/LamaranMagang'
+ *       400:
+ *         description: Invalid reCAPTCHA or unauthorized accsess
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: reCAPTCHA validation failed
+ *                 error:
+ *                   type: array
+ *                   example: invalid-input-response
  *       500:
  *         description: Internal server error
  */
+
 router.post(
-  '/add/:id_lowongan_magang',
+  '/add/:id_lowongan_magang', verifyRecaptcha ,
   multer.fields([
     { name: 'cv', maxCount: 1 },
     { name: 'portofolio', maxCount: 1 },
