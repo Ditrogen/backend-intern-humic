@@ -16,12 +16,12 @@ const addLamaranMagang = async (req, res) => {
   } = req.body;
   const CV = req.files.cv?.[0];
   const Portofolio = req.files.portofolio?.[0];
-  const status = "diproses";
-  const role = "mahasiswa";
+  const status = "in process";
+  const role = "student";
 
   try {
     const cv_path = await uploadCV(CV);
-    const portofolio_path = await uploadportofolio(Portofolio);
+    const portofolio_path = await uploadPortofolio(Portofolio);
 
     const data = {
       nama_depan,
@@ -59,7 +59,7 @@ const addLamaranMagang = async (req, res) => {
     );
 
     res.status(200).json({
-      message: "Lamaran magang berhasil ditambahkan",
+      message: "Internship application submitted successfully.",
       data: {
         id_lowongan_magang,
         data,
@@ -67,9 +67,9 @@ const addLamaranMagang = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error adding lamaran magang:", error);
+    console.error("Error adding internship application:", error);
     res.status(500).json({
-      message: "Internal server error",
+      message: "Internal server error.",
       error: error.message,
     });
   }
@@ -78,27 +78,27 @@ const addLamaranMagang = async (req, res) => {
 const uploadCV = async (CV) => {
   try {
     if (!CV) {
-      throw new Error("Harap upload CV!");
+      throw new Error("Please upload your CV.");
     }
 
     const file = `/uploads/${CV.filename}`;
     return file;
   } catch (error) {
     console.error(error.message);
-    throw new Error("Gagal mengupload CV.");
+    throw new Error("Failed to upload CV.");
   }
 };
 
-const uploadportofolio = async (portofolio) => {
+const uploadPortofolio = async (portofolio) => {
   try {
     if (!portofolio) {
-      throw new Error("Harap upload portofolio!");
+      throw new Error("Please upload your portfolio.");
     }
     const file = `/uploads/${portofolio.filename}`;
     return file;
   } catch (error) {
     console.error(error.message);
-    throw new Error("Gagal mengupload portofolio.");
+    throw new Error("Failed to upload portfolio.");
   }
 };
 
@@ -107,17 +107,17 @@ const getAllLamaranMagang = async (req, res) => {
     const [result] = await lamaranMagangModel.getAllLamaranMagang();
     if (result.length === 0) {
       return res.status(404).json({
-        message: "Tidak ada data lamaran magang",
+        message: "No internship applications found.",
       });
     }
     res.status(200).json({
-      message: "Data lamaran magang berhasil diambil",
+      message: "Internship applications retrieved successfully.",
       data: result,
     });
   } catch (error) {
-    console.error("Error fetching all lamaran magang:", error);
+    console.error("Error fetching all internship applications:", error);
     res.status(500).json({
-      message: "Internal server error",
+      message: "Internal server error.",
       error: error.message,
     });
   }
@@ -131,17 +131,17 @@ const getLamaranByIDLowonganMagang = async (req, res) => {
     );
     if (result.length === 0) {
       return res.status(404).json({
-        message: "Tidak ada data lamaran magang",
+        message: "No internship applications found for this job post.",
       });
     }
     res.status(200).json({
-      message: "Data lamaran magang berhasil diambil",
+      message: "Internship applications retrieved successfully.",
       data: result,
     });
   } catch (error) {
-    console.error("Error fetching lamaran by ID lowongan magang:", error);
+    console.error("Error fetching internship applications by job ID:", error);
     res.status(500).json({
-      message: "Internal server error",
+      message: "Internal server error.",
       error: error.message,
     });
   }
@@ -154,19 +154,19 @@ const updateStatusLamaran = async (req, res) => {
 
   try {
     if (role !== "admin") {
-      return res.status(404).json({
-        message: "Unauthorized access",
+      return res.status(403).json({
+        message: "Unauthorized access.",
       });
     }
 
     await lamaranMagangModel.updateStatusLamaran(id_lamaran_magang, status);
     res.status(200).json({
-      message: "Status lamaran magang berhasil diperbarui",
+      message: "Internship application status successfully updated.",
     });
   } catch (error) {
-    console.error("Error updating status lamaran magang:", error);
+    console.error("Error updating internship application status:", error);
     res.status(500).json({
-      message: "Internal server error",
+      message: "Internal server error.",
       error: error.message,
     });
   }
