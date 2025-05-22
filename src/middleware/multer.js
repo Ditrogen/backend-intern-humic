@@ -54,7 +54,7 @@ const storage = multer.diskStorage({
     ) {
         cb(null, true);
     } else {
-        const errMsg = 'Hanya boleh upload gambar (jpeg, jpg, png)';
+        const errMsg = 'Can only upload images (jpeg, jpg, png)';
         req.fileValidationError = errMsg;
         return cb(new Error(errMsg), false);
     }

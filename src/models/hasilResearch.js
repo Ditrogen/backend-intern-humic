@@ -1,9 +1,10 @@
 const db = require("../config/db_connection");
+const { link } = require("../routes/admin.routes");
 
-const addhasilResearch = async (image_path,nama_project,deskripsi) => {
+const addhasilResearch = async (image_path,nama_project,deskripsi,link_project) => {
   const SQLQuery =
-    "INSERT INTO hasil_research (image_path,nama_project,deskripsi) VALUES (?, ?,?)";
-  return db.execute(SQLQuery, [image_path,nama_project,deskripsi]);
+    "INSERT INTO hasil_research (image_path,nama_project,deskripsi,link_project) VALUES (?, ?,?,?)";
+  return db.execute(SQLQuery, [image_path,nama_project,deskripsi,link_project]);
 };
 
 const gethasilResearch = async () => {

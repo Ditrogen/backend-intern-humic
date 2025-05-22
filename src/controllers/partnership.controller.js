@@ -8,7 +8,7 @@ const addPartnership = async (req, res) => {
     const image_path = await uploadGambar(image);
     await partnershipModel.addPartnership(nama_partner, image_path);
     res.status(200).json({
-      message: "Data partnership berhasil ditambahkan",
+      message: "Partnership data successfully added",
       data: { nama_partner, image_path },
     });
   } catch (error) {
@@ -23,14 +23,14 @@ const addPartnership = async (req, res) => {
 const uploadGambar = async (image) => {
   try {
     if (!image) {
-      throw new Error("Harap upload gambar!");
+      throw new Error("Please upload an image!");
     }
 
     const file = `/uploads/${image.filename}`;
     return file;
   } catch (error) {
     console.error(error.message);
-    throw new Error("Gagal mengupload gambar.");
+    throw new Error("Failed to upload image.");
   }
 };
 
@@ -39,11 +39,11 @@ const getPartnership = async (req, res) => {
     const [result] = await partnershipModel.getPartnership();
     if (result.length === 0) {
       return res.status(404).json({
-        message: "Tidak ada data partnership",
+        message: "No partnership data",
       });
     }
     res.status(200).json({
-      message: "Data partnership berhasil diambil",
+      message: "Partnership data successfully retrieved",
       data: result,
     });
   } catch (error) {
@@ -61,11 +61,11 @@ const deletePartnership = async (req, res) => {
     const [result] = await partnershipModel.deletePartnership(id);
     if (result.affectedRows === 0) {
       return res.status(404).json({
-        message: "Data partnership tidak ditemukan",
+        message: "Partnership data not found",
       });
     }
     res.status(200).json({
-      message: "Data partnership berhasil dihapus",
+      message: "Partnership data successfully deleted",
     });
   } catch (error) {
     console.error("Error deleting partnership:", error);
