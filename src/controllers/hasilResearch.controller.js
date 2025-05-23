@@ -1,6 +1,6 @@
 const hasilResearchModel = require('../models/hasilResearch'); 
 
-const addHasilResearch = async (req, res) => {
+const addhasilResearch = async (req, res) => {
      const { nama_project } = req.body;
      const { deskripsi } = req.body;
      const image = req.file;
@@ -74,7 +74,7 @@ const deleteHasilResearch = async (req, res) => {
 }
 
 module.exports = {
-    addHasilResearch,
+    addhasilResearch,
     gethasilResearch,
     deleteHasilResearch
 }
