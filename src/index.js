@@ -11,6 +11,8 @@ const lamaranMagangRoutes = require("./routes/lamaranMagang.routes");
 const mahasiswaRoutes = require("./routes/mahasiswa.routes");
 const partnershipRoutes = require("./routes/partnership.routes");
 const hasilResearchRoutes = require("./routes/hasilResearch.routes");
+const visiRoutes = require("./routes/visi.routes");
+const misiRoutes = require("./routes/misi.routes");
 const setupSwaggerDocs = require("./docs/swagger");
 
 
@@ -24,6 +26,8 @@ app.use("/lamaran-magang-api", lamaranMagangRoutes);
 app.use("/mahasiswa-api", mahasiswaRoutes);
 app.use("/partnership-api", partnershipRoutes); 
 app.use("/hasil-research-api", hasilResearchRoutes);
+app.use("/visi-api", visiRoutes); 
+app.use("/misi-api", misiRoutes);
 
 setupSwaggerDocs(app);
 
