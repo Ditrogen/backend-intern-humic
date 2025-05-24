@@ -1,4 +1,5 @@
 const lowonganMagangService = require("../models/lowonganMagang");
+const { v4: uuidv4 } = require('uuid');
 
 const addLowonganMagang = async (req, res) => {
   const {
@@ -17,9 +18,10 @@ const addLowonganMagang = async (req, res) => {
   const image_path = req.file 
   try {
     if (require === "admin") {
-
+       const id = await uuidv4();
       const file = await uploadGambar(image_path); 
       await lowonganMagangService.addlowonganMagang(
+        id,
         posisi,
         kelompok_peminatan,
         jobdesk,

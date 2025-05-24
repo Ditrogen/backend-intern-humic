@@ -143,13 +143,22 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  */
 
 router.post(
-  '/add/:id_lowongan_magang', verifyRecaptcha ,
+  '/add/:id_lowongan_magang',
   multer.fields([
     { name: 'cv', maxCount: 1 },
     { name: 'portofolio', maxCount: 1 },
   ]),
   lamaranMagangController.addLamaranMagang
 );
+
+// router.post(
+//   '/add/:id_lowongan_magang', verifyRecaptcha ,
+//   multer.fields([
+//     { name: 'cv', maxCount: 1 },
+//     { name: 'portofolio', maxCount: 1 },
+//   ]),
+//   lamaranMagangController.addLamaranMagang
+// );
 
 /**
  * @swagger
