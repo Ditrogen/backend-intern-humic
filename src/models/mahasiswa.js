@@ -40,8 +40,14 @@ const getMahasiswaById = (id) => {
   return db.execute(SQLQuery, [id]);
 };
 
+const getMahasiswaByEmail = (email) => {
+  const SQLQuery = "SELECT * FROM mahasiswa WHERE email = ?";
+  return db.execute(SQLQuery, [email]);
+};
+
 module.exports = {
   addMahasiswa,
   getAllMahasiswa,
   getMahasiswaById,
+  getMahasiswaByEmail,
 };
