@@ -80,7 +80,7 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *           schema:
  *             type: object
  *             properties:
- *               recaptchaResponse:
+ *               g-recaptcha-response:
  *                 type: string
  *               nama_depan:
  *                 type: string
@@ -143,7 +143,7 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  */
 
 router.post(
-  '/add/:id_lowongan_magang', verifyRecaptcha ,
+  '/add/:id_lowongan_magang', 
   multer.fields([
     { name: 'cv', maxCount: 1 },
     { name: 'portofolio', maxCount: 1 },
