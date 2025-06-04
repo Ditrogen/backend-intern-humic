@@ -1,5 +1,9 @@
 const lowonganMagangService = require("../models/lowonganMagang");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
+const fs = require("fs").promises;
+const path = require('path');
+const { deleteFileIfExists } = require('../config/fileHelper'); // ganti sesuai lokasi fileHelper.js
+
 
 const addLowonganMagang = async (req, res) => {
   const {
@@ -15,11 +19,11 @@ const addLowonganMagang = async (req, res) => {
   } = req.body;
   const require = req.role;
   const status_lowongan = "dibuka";
-  const image_path = req.file 
+  const image_path = req.file;
   try {
     if (require === "admin") {
-       const id = await uuidv4();
-      const file = await uploadGambar(image_path); 
+      const id = await uuidv4();
+      const file = await uploadGambar(image_path);
       await lowonganMagangService.addlowonganMagang(
         id,
         posisi,
@@ -88,7 +92,9 @@ const getLowonganMagangById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [lowonganMagang] = await lowonganMagangService.getLowonganMagangById(id);
+    const [lowonganMagang] = await lowonganMagangService.getLowonganMagangById(
+      id
+    );
 
     if (lowonganMagang.length === 0) {
       return res.status(404).json({
@@ -110,21 +116,32 @@ const getLowonganMagangById = async (req, res) => {
 
 const deleteLowonganMagangById = async (req, res) => {
   const { id } = req.params;
-  const require = req.role;
+  const role = req.role;
 
   try {
-    if (require === "admin") {
+    if (role === "admin") {
       const [lowonganMagang] = await lowonganMagangService.getLowonganMagangById(id);
-      if (lowonganMagang.length === 0) {
+
+      if (!lowonganMagang || lowonganMagang.length === 0) {
         return res.status(404).json({
           message: "Internship vacancy not found",
         });
       }
+
+      const imagePath = lowonganMagang[0].image_path;
+
+      if (imagePath) {
+        const fileName = path.basename(imagePath); // Ambil nama file dari path
+        await deleteFileIfExists(fileName);
+      }
+
       await lowonganMagangService.deleteLowonganMagangById(id);
+
       return res.status(200).json({
         message: "Internship vacancy deleted successfully",
       });
     }
+
     return res.status(403).json({
       message: "Access denied: Only admins can access this route",
     });
