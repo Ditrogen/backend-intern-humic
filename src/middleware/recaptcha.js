@@ -1,6 +1,11 @@
 const axios = require("axios");
 
 const verifyRecaptcha = async (req, res, next) => {
+  const isProduction = process.env.NODE_ENV === "production";
+  if (!isProduction) {
+    next();
+  }
+
   const recaptchaToken = req.body["recaptchaResponse"];
   if (!recaptchaToken) {
     return res.status(400).json({ message: "Recaptcha token is missing" });
