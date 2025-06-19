@@ -37,7 +37,7 @@ const verifyJWT = require("../middleware/verifyJWT");
  * @swagger
  * /admin-api/add:
  *   post:
- *     summary: Create a new admin
+ *     summary: Create a new admin account
  *     tags: [Admin]
  *     security:
  *       - bearerAuth: []
@@ -74,7 +74,7 @@ router.post("/add",verifyJWT , adminController.addAdmin);
  * @swagger
  * /admin-api/get:
  *   get:
- *     summary: Get all admins
+ *     summary: Retrieve all admin account
  *     tags: [Admin]
  *     responses:
  *       200:

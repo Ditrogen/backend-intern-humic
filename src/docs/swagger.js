@@ -6,8 +6,8 @@ const swaggerOptions = {
     openapi: "3.0.0",
     info: {
       title: "Internify by HUMIC Engineering APIs",
-      version: "1.0.0",
-      description: "API for managing internship application",
+      version: "1.1.0",
+      description: "API for managing internship application for Internify web app. Created by Ramadhana & Yohanes",
     },
     components: {
       securitySchemes: {
@@ -18,7 +18,6 @@ const swaggerOptions = {
         },
       },
     },
-    security: [{ bearerAuth: [] }],
   },
   apis: [
     "./src/routes/*.js",

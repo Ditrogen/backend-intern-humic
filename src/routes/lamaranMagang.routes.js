@@ -21,6 +21,9 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *         id:
  *           type: integer
  *           example: 1
+ *         id_lamaran_magang:
+ *           type: integer
+ *           example: 7
  *         nama_depan:
  *           type: string
  *           example: "Wowo"
@@ -51,8 +54,15 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *         portofolio_path:
  *           type: string
  *           example: "/uploads/portofolio.pdf"
+ *         posisi:
+ *           type: string
+ *           example: "Backend Developer"
+ *         kelompok_peminatan:
+ *           type: string
+ *           example: "Software Engineering"
  *         status:
  *           type: string
+ *           enum: [diproses, diterima, ditolak]
  *           example: "diproses"
  *         created_at:
  *           type: string
@@ -71,8 +81,8 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *         name: id_lowongan_magang
  *         required: true
  *         schema:
- *           type: integer
- *         description: The ID of the lowongan magang (internship)
+ *           type: string
+ *         description: The ID (string) of the lowongan magang (internship)
  *     requestBody:
  *       required: true
  *       content:
@@ -84,28 +94,20 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *                 type: string
  *               nama_depan:
  *                 type: string
- *                 example: "Wowo"
  *               nama_belakang:
  *                 type: string
- *                 example: "Wewe"
  *               email:
  *                 type: string
- *                 example: "yntkts@example.com"
  *               kontak:
  *                 type: string
- *                 example: "08123456789"
  *               jurusan:
  *                 type: string
- *                 example: "Informatika"
  *               angkatan:
  *                 type: integer
- *                 example: 2022
  *               motivasi:
  *                 type: string
- *                 example: "I want to gain experience in back end development."
  *               relevant_skills:
  *                 type: string
- *                 example: "JavaScript, Node.js"
  *               cv:
  *                 type: string
  *                 format: binary
@@ -122,11 +124,11 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Lamaran magang berhasil ditambahkan"
+ *                   example: "Internship application submitted successfully."
  *                 data:
  *                   $ref: '#/components/schemas/LamaranMagang'
  *       400:
- *         description: Invalid reCAPTCHA or unauthorized accsess
+ *         description: Invalid reCAPTCHA or unauthorized access
  *         content:
  *           application/json:
  *             schema:
@@ -134,14 +136,13 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *               properties:
  *                 message:
  *                   type: string
- *                   example: reCAPTCHA validation failed
+ *                   example: "reCAPTCHA validation failed"
  *                 error:
  *                   type: array
- *                   example: invalid-input-response
+ *                   example: ["invalid-input-response"]
  *       500:
  *         description: Internal server error
  */
-
 router.post(
   '/add/:id_lowongan_magang',
   multer.fields([
@@ -258,6 +259,43 @@ router.patch(
   lamaranMagangController.updateStatusLamaran
 );
 
+/**
+ * @swagger
+ * /lamaran-magang-api/export:
+ *   get:
+ *     summary: Export all internship applications to Excel
+ *     tags: [Lamaran Magang]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Excel file generated successfully
+ *         content:
+ *           application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       403:
+ *         description: Unauthorized access
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Unauthorized access."
+ *       500:
+ *         description: Error generating Excel file
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Error generating Excel file"
+ */
 router.get('/export', verifyJWT, lamaranMagangController.exportDataToExcel);
 
 module.exports = router;
