@@ -258,4 +258,6 @@ router.patch(
   lamaranMagangController.updateStatusLamaran
 );
 
+router.get('/export', verifyJWT, lamaranMagangController.exportDataToExcel);
+
 module.exports = router;

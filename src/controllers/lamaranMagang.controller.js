@@ -2,6 +2,7 @@ const mahasiswaModel = require("../models/mahasiswa");
 const lowonganMagangModel = require("../models/lowonganMagang");
 const lamaranMagangModel = require("../models/lamaranMagang");
 const transporter = require("../config/mail");
+const ExcelJS = require('exceljs');
 require("dotenv").config();
 
 const addLamaranMagang = async (req, res) => {
@@ -284,9 +285,39 @@ const sendStatusEmail = async (dataLamaran, statusLamaran) => {
   }
 };
 
+const exportDataToExcel = async (req,res) => {
+  try {
+    const [rows] = await lamaranMagangModel.getAllExportData();
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Data');
+
+    // Add header
+    const headers = Object.keys(rows[0]);
+    worksheet.addRow(headers);
+
+    // Add rows
+    rows.forEach(row => {
+      worksheet.addRow(Object.values(row));
+    });
+
+    // setting header buat file excel
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=data.xlsx');
+
+    await workbook.xlsx.write(res);
+    res.end();
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error generating Excel file');
+  }
+}
+
 module.exports = {
   addLamaranMagang,
   getAllLamaranMagang,
   getLamaranByIDLowonganMagang,
   updateStatusLamaran,
+  exportDataToExcel,
 };
