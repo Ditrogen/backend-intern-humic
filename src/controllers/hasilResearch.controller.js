@@ -60,7 +60,7 @@ const gethasilResearch = async (req, res) => {
 const deleteHasilResearch = async (req, res) => {
     try {
         const { id } = req.params;
-        await hasilResearchModel.deleteHasilResearch(id);
+        await hasilResearchModel.deletehasilResearch(id);
         res.status(200).json({
             message: "Research result data successfully deleted",
         });

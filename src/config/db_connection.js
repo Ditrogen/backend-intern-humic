@@ -7,9 +7,7 @@ const dbConnection = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
-  ssl: {
-    rejectUnauthorized: true
-  }
+  // add ssl here during prod
 });
 
 module.exports = dbConnection.promise();
