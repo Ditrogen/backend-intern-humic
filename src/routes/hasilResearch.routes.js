@@ -84,7 +84,7 @@ const multer = require('../middleware/multer');
  *       500:
  *         description: Internal server error
  */
-router.post('/add', verifyJWT, multer.single('image'), hasilResearchController.addHasilResearch);
+router.post('/add', verifyJWT, multer.single('image'), hasilResearchController.addhasilResearch);
 
 /**
  * @swagger

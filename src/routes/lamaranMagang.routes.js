@@ -80,7 +80,7 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *           schema:
  *             type: object
  *             properties:
- *               g-recaptcha-response:
+ *               recaptchaResponse:
  *                 type: string
  *               nama_depan:
  *                 type: string
@@ -143,13 +143,22 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  */
 
 router.post(
-  '/add/:id_lowongan_magang', 
+  '/add/:id_lowongan_magang',
   multer.fields([
     { name: 'cv', maxCount: 1 },
     { name: 'portofolio', maxCount: 1 },
   ]),
   lamaranMagangController.addLamaranMagang
 );
+
+// router.post(
+//   '/add/:id_lowongan_magang', verifyRecaptcha ,
+//   multer.fields([
+//     { name: 'cv', maxCount: 1 },
+//     { name: 'portofolio', maxCount: 1 },
+//   ]),
+//   lamaranMagangController.addLamaranMagang
+// );
 
 /**
  * @swagger

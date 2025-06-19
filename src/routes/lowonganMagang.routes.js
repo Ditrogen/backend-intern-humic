@@ -8,6 +8,7 @@ const express = require("express");
 const router = express.Router();
 const lowonganMagang = require("../controllers/lowonganMagang.controller");
 const verifyJWT = require("../middleware/verifyJWT");
+const multer = require('../middleware/multer'); 
 
 /**
  * @swagger
@@ -79,7 +80,7 @@ const verifyJWT = require("../middleware/verifyJWT");
  *       500:
  *         description: Internal server error
  */
-router.post("/add", verifyJWT, lowonganMagang.addLowonganMagang);
+router.post("/add", verifyJWT,multer.single("image"), lowonganMagang.addLowonganMagang);
 
 /**
  * @swagger

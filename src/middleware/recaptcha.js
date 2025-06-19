@@ -1,24 +1,24 @@
 const axios = require("axios");
 
 const verifyRecaptcha = async (req, res, next) => {
-  const recaptchaResponse = req.body['g-recaptcha-response'];
-  const secretKey = process.env.RECAPTCHA_SECRET_KEY
-  
-  if (!recaptchaResponse) {
+  const isProduction = process.env.NODE_ENV === "production";
+  if (!isProduction) {
+    next();
+  }
+
+  const recaptchaToken = req.body["recaptchaResponse"];
+  if (!recaptchaToken) {
     return res.status(400).json({ message: "Recaptcha token is missing" });
   }
-  
-  try {
-    console.log(recaptchaResponse);
-    console.log(secretKey);
-    console.log(req.ip);
 
-    const response = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaResponse}&remoteip=${req.ip}`)
+  try {
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    const response = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`
+    );
     const data = response.data;
 
     if (!data.success) {
-      console.log(data);
-      
       return res.status(400).json({ message: "Recaptcha verification failed" });
     }
     next();

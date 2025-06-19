@@ -25,6 +25,7 @@ app.use("/mahasiswa-api", mahasiswaRoutes);
 app.use("/partnership-api", partnershipRoutes); 
 app.use("/hasil-research-api", hasilResearchRoutes);
 
+
 setupSwaggerDocs(app);
 
 app.listen(PORT, () => {

@@ -1,6 +1,7 @@
 const db = require("../config/db_connection");
 
 const addlowonganMagang = async (
+  id,
   posisi,
   kelompok_peminatan,
   jobdesk,
@@ -10,11 +11,12 @@ const addlowonganMagang = async (
   durasi_awal,
   durasi_akhir,
   status_lowongan,
-  paid
+  paid,
+  image_path
 ) => {
-  const SQLQuery = `INSERT INTO lowongan_magang (posisi, kelompok_peminatan, jobdesk, lokasi, kualifikasi, benefit, durasi_awal, durasi_akhir, status_lowongan, paid,created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`;
- 
+  const SQLQuery = `INSERT INTO lowongan_magang (id,posisi, kelompok_peminatan, jobdesk, lokasi, kualifikasi, benefit, durasi_awal, durasi_akhir, status_lowongan, paid,created_at,image_path) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(),?)`;
   return db.execute(SQLQuery, [
+    id,
     posisi,
     kelompok_peminatan,
     jobdesk,
@@ -25,6 +27,7 @@ const addlowonganMagang = async (
     durasi_akhir,
     status_lowongan,
     paid,
+    image_path,
     ]);
 };
 
