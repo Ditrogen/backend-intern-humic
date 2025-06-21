@@ -101,10 +101,32 @@ const getDetailLamaranById = async (idLamaran) => {
      return db.execute(SQLQuery, [idLamaran]);
 };
 
+const getAllExportData = async () => {
+  const SQLQuery = `
+  SELECT 
+    m.nama_depan,
+    m.nama_belakang,
+    m.email,
+    m.kontak,
+    m.jurusan,
+    m.angkatan,
+    l.posisi,
+    l.kelompok_peminatan
+    FROM 
+        lamaran_magang lm
+    JOIN 
+        mahasiswa m ON lm.id_mahasiswa = m.id
+    JOIN 
+        lowongan_magang l ON lm.id_lowongan_magang = l.id;
+`;
+return db.execute(SQLQuery);
+}
+
 module.exports = {
   addlowonganMagang,
   getAllLamaranMagang,
   getLamaranByIDLowonganMagang,
   updateStatusLamaran,
   getDetailLamaranById,
+  getAllExportData,
 };

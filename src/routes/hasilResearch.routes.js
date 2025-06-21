@@ -29,13 +29,16 @@ const multer = require('../middleware/multer');
  *         deskripsi:
  *           type: string
  *           example: "A project exploring machine learning techniques in healthcare."
+ *         link_project:
+ *           type: string
+ *           example: "https://youtube.com"
  */
 
 /**
  * @swagger
  * /hasil-research-api/add:
  *   post:
- *     summary: Add a new research result
+ *     summary: Add a HUMIC Internship research (product)
  *     tags: [Hasil Research]
  *     security:
  *       - bearerAuth: []
@@ -54,6 +57,10 @@ const multer = require('../middleware/multer');
  *                 type: string
  *                 description: Description of the research project
  *                 example: "A project exploring machine learning techniques in healthcare."
+ *               link_project:
+ *                 type: string
+ *                 description: link to the project
+ *                 example: "https://youtube.com"
  *               image:
  *                 type: string
  *                 format: binary
@@ -90,7 +97,7 @@ router.post('/add', verifyJWT, multer.single('image'), hasilResearchController.a
  * @swagger
  * /hasil-research-api/get:
  *   get:
- *     summary: Get all research results
+ *     summary: Retrieve all research (product) results
  *     tags: [Hasil Research]
  *     responses:
  *       200:
@@ -102,7 +109,7 @@ router.post('/add', verifyJWT, multer.single('image'), hasilResearchController.a
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Data hasil research berhasil diambil"
+ *                   example: "Research data was successfully collected"
  *                 data:
  *                   type: array
  *                   items:
@@ -118,7 +125,7 @@ router.get('/get', hasilResearchController.gethasilResearch);
  * @swagger
  * /hasil-research-api/delete/{id}:
  *   delete:
- *     summary: Delete a research result by ID
+ *     summary: Delete a research (product) result by ID
  *     tags: [Hasil Research]
  *     security:
  *       - bearerAuth: []
@@ -128,7 +135,7 @@ router.get('/get', hasilResearchController.gethasilResearch);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID of the research result to delete
+ *         description: ID of the research (product) result to delete
  *     responses:
  *       200:
  *         description: Research result deleted successfully
@@ -139,7 +146,7 @@ router.get('/get', hasilResearchController.gethasilResearch);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Data hasil research berhasil dihapus"
+ *                   example: "Research result data successfully deleted"
  *       404:
  *         description: Research result not found
  *       500:
