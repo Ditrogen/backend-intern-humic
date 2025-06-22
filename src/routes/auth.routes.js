@@ -53,7 +53,7 @@ router.post("/login", authController.login);
  * @swagger
  * /auth-api/me:
  *   get:
- *     summary: Get authenticated admin details
+ *     summary: Retrieve authenticated admin details
  *     tags: [Auth]
  *     security:
  *       - bearerAuth: []
