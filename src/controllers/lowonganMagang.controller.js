@@ -114,6 +114,30 @@ const getLowonganMagangById = async (req, res) => {
   }
 };
 
+const getLowonganByKelompokPeminatan = async (req, res) => {
+  const { kelompok_peminatan } = req.params;
+
+  try {
+    const [lowonganMagang] = await lowonganMagangService.getLowonganByKelompokPeminatan(kelompok_peminatan);
+
+    if (lowonganMagang.length === 0) {
+      return res.status(404).json({
+        message: "No internship vacancies found for this specialization group",
+      });
+    }
+    return res.status(200).json({
+      message: "Successfully retrieved internship vacancies by specialization group",
+      data: lowonganMagang,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+}
+
 const deleteLowonganMagangById = async (req, res) => {
   const { id } = req.params;
   const role = req.role;
@@ -134,7 +158,6 @@ const deleteLowonganMagangById = async (req, res) => {
         const fileName = path.basename(imagePath); // Ambil nama file dari path
         await deleteFileIfExists(fileName);
       }
-
       await lowonganMagangService.deleteLowonganMagangById(id);
 
       return res.status(200).json({
@@ -158,5 +181,6 @@ module.exports = {
   addLowonganMagang,
   getAllLowonganMagang,
   getLowonganMagangById,
+  getLowonganByKelompokPeminatan,
   deleteLowonganMagangById,
 };

@@ -17,6 +17,7 @@ const addLamaranMagang = async (req, res) => {
     motivasi,
     relevant_skills,
   } = req.body;
+
   const CV = req.files.cv?.[0];
   const Portofolio = req.files.portofolio?.[0];
   const status = "diproses";
@@ -25,6 +26,7 @@ const addLamaranMagang = async (req, res) => {
   try {
     const cv_path = await uploadCV(CV);
     const portofolio_path = await uploadPortofolio(Portofolio);
+
     const [lowonganMagang] = await lowonganMagangModel.getLowonganMagangById(
       id_lowongan_magang
     );
@@ -34,10 +36,12 @@ const addLamaranMagang = async (req, res) => {
         message: "Internship vacancy not found.",
       });
     }
+    
+    const namaBelakangFinal = nama_belakang?.trim() || null;
 
     const dataMahasiswa = {
       nama_depan,
-      nama_belakang,
+      nama_belakang: namaBelakangFinal,
       email,
       kontak,
       jurusan,
@@ -51,7 +55,7 @@ const addLamaranMagang = async (req, res) => {
 
     const result = await mahasiswaModel.addMahasiswa(
       nama_depan,
-      nama_belakang,
+      namaBelakangFinal,
       email,
       kontak,
       jurusan,
@@ -64,6 +68,7 @@ const addLamaranMagang = async (req, res) => {
     );
 
     const id_mahasiswa = result[0].insertId;
+
     await lamaranMagangModel.addlowonganMagang(
       id_mahasiswa,
       id_lowongan_magang,
@@ -72,7 +77,7 @@ const addLamaranMagang = async (req, res) => {
 
     await sendEmail(dataMahasiswa, lowonganMagang[0]);
 
-    await res.status(200).json({
+    res.status(200).json({
       message: "Internship application submitted successfully.",
       data: {
         id_lowongan_magang,
@@ -88,6 +93,7 @@ const addLamaranMagang = async (req, res) => {
     });
   }
 };
+
 
 const uploadCV = async (CV) => {
   try {
