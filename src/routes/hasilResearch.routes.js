@@ -123,6 +123,65 @@ router.get('/get', hasilResearchController.gethasilResearch);
 
 /**
  * @swagger
+ * /hasil-research-api/get/{id}:
+ *   get:
+ *     summary: Get research result by ID
+ *     tags: [Hasil Research]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the research data to retrieve
+ *     responses:
+ *       200:
+ *         description: Research data was successfully collected
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Research data was successfully collected
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 1
+ *                       image_path:
+ *                         type: string
+ *                         example: "/uploads/1629882719283.png"
+ *                       nama_project:
+ *                         type: string
+ *                         example: "Smart Farming IoT"
+ *                       deskripsi:
+ *                         type: string
+ *                         example: "A smart farming system using IoT sensors"
+ *                       link_project:
+ *                         type: string
+ *                         example: "https://github.com/user/smart-farming"
+ *       404:
+ *         description: Hasil research not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Hasil research not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/get/:id', hasilResearchController.gethasilResearchById)
+
+/**
+ * @swagger
  * /hasil-research-api/delete/{id}:
  *   delete:
  *     summary: Delete a research (product) result by ID

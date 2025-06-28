@@ -92,8 +92,33 @@ const deleteHasilResearch = async (req, res) => {
     }
 }
 
+const gethasilResearchById = async (req, res) => {
+    try {
+      const { id } = req.params
+      const [hasilResearch] = await hasilResearchModel.gethasilResearchById(id);
+
+        if (hasilResearch.length === 0) {
+          return res.status(404).json({
+            messsage: "Hasil research not found",
+          });
+        }
+
+        res.status(200).json({
+            message: "Research data was successfully collected",
+            data: hasilResearch,
+        });
+    } catch (error) {
+        console.error("Error getting research results:", error);
+        res.status(500).json({
+            message: "Internal server error",
+            error: error.message,
+        });
+    }
+}
+
 module.exports = {
     addhasilResearch,
     gethasilResearch,
+    gethasilResearchById,
     deleteHasilResearch
 }
