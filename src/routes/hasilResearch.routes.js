@@ -186,6 +186,8 @@ router.get('/get/:id', hasilResearchController.gethasilResearchById)
  *   patch:
  *     summary: Update an existing hasil research entry
  *     tags: [Hasil Research]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -244,7 +246,7 @@ router.get('/get/:id', hasilResearchController.gethasilResearchById)
  *       500:
  *         description: Internal server error
  */
-router.patch("/update/:id", multer.single('image'), hasilResearchController.updateHasilResearch);
+router.patch("/update/:id", verifyJWT, multer.single('image'), hasilResearchController.updateHasilResearch);
 
 /**
  * @swagger
