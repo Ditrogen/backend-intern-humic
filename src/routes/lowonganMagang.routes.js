@@ -187,7 +187,7 @@ router.get("/get", lowonganMagang.getAllLowonganMagang);
  *       500:
  *         description: "Internal server error"
  */
-router.get("/get/:id", lowonganMagang.getLowonganMagangById);
+router.get("/get/id/:id", lowonganMagang.getLowonganMagangById);
 
 /**
  * @swagger
@@ -214,6 +214,9 @@ router.get("/get/:id", lowonganMagang.getLowonganMagangById);
  *       500:
  *         description: "Internal server error"
  */
+
+router.get("/get/kelompok/:kelompok_peminatan", lowonganMagang.getLowonganByKelompokPeminatan); 
+
 router.delete("/delete/:id", verifyJWT, lowonganMagang.deleteLowonganMagangById);
 
 module.exports = router;
