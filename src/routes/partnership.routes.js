@@ -26,6 +26,10 @@ const multer = require('../middleware/multer');
  *         image_path:
  *           type: string
  *           example: "/uploads/logo.png"
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *           example: "2025-06-19T10:00:00Z"         
  */
 
 /**
@@ -102,6 +106,111 @@ router.post('/add', verifyJWT, multer.single('image'), partnershipController.add
  *         description: Internal server error
  */
 router.get('/get', partnershipController.getPartnership);
+
+/**
+ * @swagger
+ * /partnership-api/get/{id}:
+ *   get:
+ *     summary: Get partnership data by ID
+ *     tags: [Partnership]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the partnership
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Partnership data was successfully collected
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "patnership data was successfully collected"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Partnership'
+ *       404:
+ *         description: Partnership not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "partnership not found"
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/get/:id', partnershipController.getPartnershipById)
+
+/**
+ * @swagger
+ * /partnership-api/update/{id}:
+ *   patch:
+ *     summary: Update a partnership's name or image
+ *     tags: [Partnership]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the partnership to update
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nama_partner:
+ *                 type: string
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Partnership successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Partnership successfully updated"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     nama_partner:
+ *                       type: string
+ *                     image_path:
+ *                       type: string
+ *       404:
+ *         description: Partnership not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Partnership not found"
+ *       500:
+ *         description: Internal server error
+ */
+router.patch('/update/:id', verifyJWT, multer.single('image'), partnershipController.updatePartnership)
 
 /**
  * @swagger

@@ -138,9 +138,9 @@ const updateHasilResearch = async (req, res) => {
     }
 
     const updatedData = {
-      nama_project: nama_project ?? currentData.nama_project,
-      deskripsi: deskripsi ?? currentData.deskripsi,
-      link_project: link_project ?? currentData.link_project,
+      nama_project: nama_project?.trim() ? nama_project : currentData.nama_project,
+      deskripsi: deskripsi?.trim() ? deskripsi : currentData.deskripsi,
+      link_project: link_project?.trim() ? link_project : currentData.link_project,
       image_path,
     };
 
@@ -154,7 +154,13 @@ const updateHasilResearch = async (req, res) => {
 
     return res.status(200).json({
       message: "Hasil research successfully updated",
-      data: { id, nama_project, deskripsi, link_project, image_path },
+      data: {
+        id,
+        nama_project: updatedData.nama_project,
+        deskripsi: updatedData.deskripsi,
+        link_project: updatedData.link_project,
+        image_path: updatedData.image_path,
+      },
     });
   } catch (error) {
     console.error("Error updating research:", error);
