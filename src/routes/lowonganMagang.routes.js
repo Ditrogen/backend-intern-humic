@@ -159,7 +159,7 @@ router.get("/get", lowonganMagang.getAllLowonganMagang);
 
 /**
  * @swagger
- * /lowongan-magang-api/get/{id}:
+ * /lowongan-magang-api/get/id/{id}:
  *   get:
  *     summary: "Get a specific lowongan magang by ID"
  *     tags: [Lowongan Magang]
