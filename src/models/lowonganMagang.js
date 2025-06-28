@@ -45,6 +45,11 @@ const getLowonganByKelompokPeminatan = async (kelompok_peminatan) => {
     const SQLQuery = "SELECT * FROM lowongan_magang WHERE kelompok_peminatan = ?";
     return db.execute(SQLQuery, [kelompok_peminatan]);
 }
+
+const getAllKelompokPeminatan = async () => {
+    const SQLQuery = "SELECT DISTINCT kelompok_peminatan FROM lowongan_magang"
+    return db.execute(SQLQuery);
+}
  
 const deleteLowonganMagangById = async (id) => {
     const SQLQuery = "DELETE FROM lowongan_magang WHERE id = ?";
@@ -56,5 +61,6 @@ module.exports = {
     getAllLowonganMagang,
     getLowonganMagangById,
     getLowonganByKelompokPeminatan,
+    getAllKelompokPeminatan,
     deleteLowonganMagangById
 }

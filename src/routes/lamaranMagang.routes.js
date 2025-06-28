@@ -96,6 +96,8 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *                 type: string
  *               nama_belakang:
  *                 type: string
+ *                 nullable: true
+ *                 description: Optional, can be left empty
  *               email:
  *                 type: string
  *               kontak:
