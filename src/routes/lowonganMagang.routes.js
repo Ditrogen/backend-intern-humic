@@ -26,7 +26,7 @@ const multer = require('../middleware/multer');
  *           example: "Back End Developer"
  *         kelompok_peminatan:
  *           type: string
- *           example: "Software Development"
+ *           example: "Software Engineer"
  *         image_path:
  *           type: string
  *           example: "/uploads/poster.png"
@@ -95,7 +95,7 @@ const multer = require('../middleware/multer');
  *                 example: "Back End Development"
  *               kelompok_peminatan:
  *                 type: string
- *                 example: "Software Engineering"
+ *                 example: "Software Engineer"
  *               jobdesk:
  *                 type: string
  *                 example: "Membuat Schema database, membuat API, mengurus CI/CD"
@@ -191,6 +191,73 @@ router.get("/get/id/:id", lowonganMagang.getLowonganMagangById);
 
 /**
  * @swagger
+ * /lowongan-magang-api/get/kelompok/{kelompok_peminatan}:
+ *   get:
+ *     summary: Get all internship vacancies by specialization group (kelompok_peminatan)
+ *     tags: [Lowongan Magang]
+ *     parameters:
+ *       - in: path
+ *         name: kelompok_peminatan
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The specialization group (e.g., Software Engineer, Data / AI, Design, Multimedia)
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved internship vacancies by specialization group
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Successfully retrieved internship vacancies by specialization group"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/LowonganMagang'
+ *       404:
+ *         description: "No internship vacancies found for this specialization group"
+ *       500:
+ *         description: Internal server error
+ */
+router.get("/get/kelompok/:kelompok_peminatan", lowonganMagang.getLowonganByKelompokPeminatan); 
+
+/**
+ * @swagger
+ * /lowongan-magang-api/get/kelompok-all:
+ *   get:
+ *     summary: Get all distinct specialization groups (kelompok_peminatan)
+ *     tags: [Lowongan Magang]
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved all specialization groups
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Successfully retrieved all specialization group"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       kelompok_peminatan:
+ *                         type: string
+ *                         example: "Software Engineer"
+ *       404:
+ *         description: No internship specialization group found
+ *       500:
+ *         description: Internal server error
+ */
+router.get("/get/kelompok-all", lowonganMagang.getAllKelompokPeminatan)
+
+/**
+ * @swagger
  * /lowongan-magang-api/delete/{id}:
  *   delete:
  *     summary: "Delete a specific lowongan magang by ID"
@@ -214,9 +281,6 @@ router.get("/get/id/:id", lowonganMagang.getLowonganMagangById);
  *       500:
  *         description: "Internal server error"
  */
-
-router.get("/get/kelompok/:kelompok_peminatan", lowonganMagang.getLowonganByKelompokPeminatan); 
-
 router.delete("/delete/:id", verifyJWT, lowonganMagang.deleteLowonganMagangById);
 
 module.exports = router;

@@ -11,6 +11,20 @@ const getPartnership = async () => {
     return db.execute(SQLQuery);
 }
 
+const getPartnershipById = async (id) => {
+  const SQLQuery = "SELECT * FROM partnership WHERE id = ?"
+  return db.execute(SQLQuery, [id])
+}
+
+const updatePartnership = async (id, nama_partner, image_path) => {
+  const SQLQuery = `
+    UPDATE partnership 
+    SET nama_partner = ?, image_path = ? 
+    WHERE id = ?
+  `;
+  return db.execute(SQLQuery, [nama_partner, image_path, id]);
+};
+
 const deletePartnership = async (id) => {
     const SQLQuery = "DELETE FROM partnership WHERE id = ?";
     return db.execute(SQLQuery, [id]);
@@ -20,5 +34,7 @@ const deletePartnership = async (id) => {
 module.exports = {  
     addPartnership,
     getPartnership,
+    getPartnershipById,
+    updatePartnership,
     deletePartnership
 }
