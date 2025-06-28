@@ -17,6 +17,15 @@ const gethasilResearchById = async (id) => {
   return db.execute(SQLQuery, [id])
 }
 
+const updateHasilResearch = async (id, nama_project, deskripsi, link_project, image_path) => {
+  const SQLQuery = `
+    UPDATE hasil_research 
+    SET nama_project = ?, deskripsi = ?, link_project = ?, image_path = ? 
+    WHERE id = ?
+  `;
+  return db.execute(SQLQuery, [nama_project, deskripsi, link_project, image_path, id]);
+};
+
 const deletehasilResearch = async (id) => {
     const SQLQuery = "DELETE FROM hasil_research WHERE id = ?";
     return db.execute(SQLQuery, [id]);
@@ -27,5 +36,6 @@ module.exports = {
     addhasilResearch,
     gethasilResearch,
     gethasilResearchById,
+    updateHasilResearch,
     deletehasilResearch
 }

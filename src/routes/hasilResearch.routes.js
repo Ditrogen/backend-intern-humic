@@ -182,6 +182,72 @@ router.get('/get/:id', hasilResearchController.gethasilResearchById)
 
 /**
  * @swagger
+ * /hasil-research-api/update/{id}:
+ *   patch:
+ *     summary: Update an existing hasil research entry
+ *     tags: [Hasil Research]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the hasil research to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nama_project:
+ *                 type: string
+ *                 example: "Sistem Deteksi Kualitas Udara"
+ *               deskripsi:
+ *                 type: string
+ *                 example: "Aplikasi yang memantau dan menilai kualitas udara secara real-time"
+ *               link_project:
+ *                 type: string
+ *                 example: "https://github.com/username/project"
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *                 description: Optional. Upload a new image to replace the old one.
+ *     responses:
+ *       200:
+ *         description: Hasil research successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Hasil research successfully updated"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                       example: 1
+ *                     nama_project:
+ *                       type: string
+ *                     deskripsi:
+ *                       type: string
+ *                     link_project:
+ *                       type: string
+ *                     image_path:
+ *                       type: string
+ *                       example: "/uploads/1721019403915.png"
+ *       404:
+ *         description: Hasil research not found
+ *       500:
+ *         description: Internal server error
+ */
+router.patch("/update/:id", multer.single('image'), hasilResearchController.updateHasilResearch);
+
+/**
+ * @swagger
  * /hasil-research-api/delete/{id}:
  *   delete:
  *     summary: Delete a research (product) result by ID
