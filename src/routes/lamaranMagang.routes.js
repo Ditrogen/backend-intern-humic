@@ -190,19 +190,19 @@ router.get('/get', verifyJWT, lamaranMagangController.getAllLamaranMagang);
 
 /**
  * @swagger
- * /lamaran-magang-api/get/{id_lowongan_magang}:
+ * /lamaran-magang-api/get/{id_lamaran_magang}:
  *   get:
- *     summary: Get all lamaran magang by internship ID
+ *     summary: Get lamaran magang by ID
  *     tags: [Lamaran Magang]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id_lowongan_magang
+ *         name: id_lamaran_magang
  *         required: true
  *         schema:
  *           type: string
- *         description: The ID of the lowongan magang (internship)
+ *         description: The ID of the lamaran magang (internship)
  *     responses:
  *       200:
  *         description: Successfully retrieved lamaran magang
@@ -218,9 +218,9 @@ router.get('/get', verifyJWT, lamaranMagangController.getAllLamaranMagang);
  *         description: Internal server error
  */
 router.get(
-  '/get/:id_lowongan_magang',
+  '/get/:id_lamaran_magang',
   verifyJWT,
-  lamaranMagangController.getLamaranByIDLowonganMagang
+  lamaranMagangController.getLamaranByID
 );
 
 /**

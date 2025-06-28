@@ -143,15 +143,15 @@ const getAllLamaranMagang = async (req, res) => {
   }
 };
 
-const getLamaranByIDLowonganMagang = async (req, res) => {
-  const { id_lowongan_magang } = req.params;
+const getLamaranByID = async (req, res) => {
+  const { id_lamaran_magang } = req.params;
   try {
-    const [result] = await lamaranMagangModel.getLamaranByIDLowonganMagang(
-      id_lowongan_magang
+    const [result] = await lamaranMagangModel.getLamaranByID(
+      id_lamaran_magang
     );
     if (result.length === 0) {
       return res.status(404).json({
-        message: "No internship applications found for this job post.",
+        message: "No internship applications found.",
       });
     }
     res.status(200).json({
@@ -159,7 +159,7 @@ const getLamaranByIDLowonganMagang = async (req, res) => {
       data: result,
     });
   } catch (error) {
-    console.error("Error fetching internship applications by job ID:", error);
+    console.error("Error fetching internship applications by ID:", error);
     res.status(500).json({
       message: "Internal server error.",
       error: error.message,
@@ -323,7 +323,7 @@ const exportDataToExcel = async (req,res) => {
 module.exports = {
   addLamaranMagang,
   getAllLamaranMagang,
-  getLamaranByIDLowonganMagang,
+  getLamaranByID,
   updateStatusLamaran,
   exportDataToExcel,
 };
