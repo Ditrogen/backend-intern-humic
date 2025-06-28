@@ -1,4 +1,6 @@
-const hasilResearchModel = require('../models/hasilResearch'); 
+const hasilResearchModel = require('../models/hasilResearch');
+const path = require('path');
+const { deleteFileIfExists } = require('../config/fileHelper');
 
 const addhasilResearch = async (req, res) => {
      const { nama_project } = req.body;
@@ -8,7 +10,7 @@ const addhasilResearch = async (req, res) => {
       
       try {
         const image_path = await uploadGambar(image);
-        await hasilResearchModel.addhasilResearch(nama_project,deskripsi, image_path,link_project);
+        await hasilResearchModel.addhasilResearch(nama_project,deskripsi, link_project, image_path);
         res.status(200).json({
           message: "Research result data successfully added",
           data: { nama_project,deskripsi, image_path,link_project },
@@ -60,6 +62,23 @@ const gethasilResearch = async (req, res) => {
 const deleteHasilResearch = async (req, res) => {
     try {
         const { id } = req.params;
+        const [hasilResearch] = await hasilResearchModel.gethasilResearchById(id);
+
+        if (hasilResearch.length === 0) {
+          return res.status(404).json({
+            messsage: "Hasil research not found",
+          });
+        }
+
+        console.log(hasilResearch)
+        const image_path = hasilResearch[0].image_path;
+        console.log(image_path)
+
+        if (image_path) {
+          const fileName = path.basename(image_path);
+          await deleteFileIfExists(fileName);
+        }
+
         await hasilResearchModel.deletehasilResearch(id);
         res.status(200).json({
             message: "Research result data successfully deleted",

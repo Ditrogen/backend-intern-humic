@@ -1,15 +1,20 @@
 const db = require("../config/db_connection");
 const { link } = require("../routes/admin.routes");
 
-const addhasilResearch = async (image_path,nama_project,deskripsi,link_project) => {
+const addhasilResearch = async (nama_project,deskripsi, link_project, image_path) => {
   const SQLQuery =
-    "INSERT INTO hasil_research (image_path,nama_project,deskripsi,link_project) VALUES (?, ?,?,?)";
-  return db.execute(SQLQuery, [image_path,nama_project,deskripsi,link_project]);
+    "INSERT INTO hasil_research (nama_project, deskripsi, link_project, image_path) VALUES (?,?,?,?)";
+  return db.execute(SQLQuery, [nama_project,deskripsi, link_project, image_path]);
 };
 
 const gethasilResearch = async () => {
     const SQLQuery = "SELECT * FROM hasil_research";
     return db.execute(SQLQuery);
+}
+
+const gethasilResearchById = async (id) => {
+  const SQLQuery = "SELECT * FROM hasil_research WHERE id = ?"
+  return db.execute(SQLQuery, [id])
 }
 
 const deletehasilResearch = async (id) => {
@@ -21,5 +26,6 @@ const deletehasilResearch = async (id) => {
 module.exports = {
     addhasilResearch,
     gethasilResearch,
+    gethasilResearchById,
     deletehasilResearch
 }
