@@ -26,7 +26,7 @@ const multer = require('../middleware/multer');
  *           example: "Back End Developer"
  *         kelompok_peminatan:
  *           type: string
- *           example: "Software Development"
+ *           example: "Software Engineer"
  *         image_path:
  *           type: string
  *           example: "/uploads/poster.png"
@@ -95,7 +95,7 @@ const multer = require('../middleware/multer');
  *                 example: "Back End Development"
  *               kelompok_peminatan:
  *                 type: string
- *                 example: "Software Engineering"
+ *                 example: "Software Engineer"
  *               jobdesk:
  *                 type: string
  *                 example: "Membuat Schema database, membuat API, mengurus CI/CD"

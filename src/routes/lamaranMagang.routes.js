@@ -90,8 +90,9 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *           schema:
  *             type: object
  *             properties:
- *               recaptchaResponse:
+ *               g-recaptcha-response:
  *                 type: string
+ *                 description: "This field requests the TOKEN GENERATED when the user completes the recaptcha, NOT THE SITE KEY. Refer to the reCAPTCHA v2 docs"
  *               nama_depan:
  *                 type: string
  *               nama_belakang:
@@ -200,7 +201,7 @@ router.get('/get', verifyJWT, lamaranMagangController.getAllLamaranMagang);
  *         name: id_lowongan_magang
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: The ID of the lowongan magang (internship)
  *     responses:
  *       200:
@@ -235,7 +236,7 @@ router.get(
  *         name: id_lamaran_magang
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *         description: The ID of the lamaran magang
  *     requestBody:
  *       required: true
