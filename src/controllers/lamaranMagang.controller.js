@@ -208,6 +208,8 @@ const updateStatusLamaran = async (req, res) => {
 
 const sendEmail = async (dataMahasiswa, dataPekerjaan) => {
   try {
+    const fullName = `${dataMahasiswa.nama_depan}${dataMahasiswa.nama_belakang ? ' ' + dataMahasiswa.nama_belakang : ''}`;
+
     const mailOptions = {
       from: process.env.AUTH_EMAIL,
       to: dataMahasiswa.email,
@@ -220,7 +222,7 @@ const sendEmail = async (dataMahasiswa, dataPekerjaan) => {
       html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
       <h2 style="color: #333;">Lamaran Anda Telah Kami Terima</h2>
-      <p>Halo ${dataMahasiswa.nama_depan} ${dataMahasiswa.nama_belakang},</p>
+      <p>Halo ${fullName},</p>
 
       <p>Terima kasih telah mengirimkan lamaran untuk posisi <strong>${dataPekerjaan.posisi}</strong> di <strong>Humic Engineering</strong>.</p>
 
@@ -248,6 +250,7 @@ const sendEmail = async (dataMahasiswa, dataPekerjaan) => {
 const sendStatusEmail = async (dataLamaran, statusLamaran) => {
   try {
     const isAccepted = statusLamaran === "diterima";
+    const fullName = `${dataLamaran.nama_depan}${dataLamaran.nama_belakang ? ' ' + dataLamaran.nama_belakang : ''}`;
 
     const subject = isAccepted
       ? "Selamat! Lamaran Anda Diterima"
@@ -255,13 +258,13 @@ const sendStatusEmail = async (dataLamaran, statusLamaran) => {
 
     const messageContent = isAccepted
       ? `
-        <p>Halo ${dataLamaran.nama_depan} ${dataLamaran.nama_belakang},</p>
+        <p>Halo ${fullName},</p>
         <p>Selamat! Lamaran Anda untuk posisi <strong>${dataLamaran.posisi}</strong> di <strong>Humic Engineering</strong> telah diterima.</p>
         <p>Tim kami sangat terkesan dengan profil dan kualifikasi Anda. Kami akan segera menghubungi Anda terkait tahapan selanjutnya.</p>
         <p>Terima kasih telah melamar dan kami menantikan kerja sama yang luar biasa bersama Anda.</p>
       `
       : `
-        <p>Halo ${dataLamaran.nama_depan} ${dataLamaran.nama_belakang},</p>
+        <p>Halo ${fullName},</p>
         <p>Terima kasih atas lamaran Anda untuk posisi <strong>${dataLamaran.posisi}</strong> di <strong>Humic Engineering</strong>.</p>
         <p>Setelah mempertimbangkan secara seksama, kami memutuskan untuk tidak melanjutkan proses lamaran Anda ke tahap berikutnya.</p>
         <p>Jangan berkecil hati—kami sangat menghargai waktu dan usaha Anda. Kami mendorong Anda untuk terus mencoba dan semoga sukses dalam perjalanan karier Anda.</p>
