@@ -301,6 +301,38 @@ router.patch(
  */
 router.get('/export', verifyJWT, lamaranMagangController.exportDataToExcel);
 
+/**
+ * @swagger
+ * /lamaran-magang-api/delete:
+ *   delete:
+ *     summary: Delete all internship applications, students, and their files
+ *     tags: [Lamaran Magang]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: All student data, applications, and files were successfully deleted.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: All student data, applications, and files were successfully deleted.
+ *       500:
+ *         description: Failed to delete all data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Failed to delete all data.
+ *                 error:
+ *                   type: string
+ */
 router.delete("/delete", verifyJWT, lamaranMagangController.deleteAllLamaranMagang);
 
 module.exports = router;

@@ -248,6 +248,7 @@ const sendEmail = async (dataMahasiswa, dataPekerjaan) => {
 const sendStatusEmail = async (dataLamaran, statusLamaran) => {
   try {
     const isAccepted = statusLamaran === "diterima";
+    const fullName = `${dataLamaran.nama_depan}${dataLamaran.nama_belakang ? ' ' + dataLamaran.nama_belakang : ''}`;
 
     const subject = isAccepted
       ? "Selamat! Lamaran Anda Diterima"
@@ -255,13 +256,13 @@ const sendStatusEmail = async (dataLamaran, statusLamaran) => {
 
     const messageContent = isAccepted
       ? `
-        <p>Halo ${dataLamaran.nama_depan} ${dataLamaran.nama_belakang},</p>
+        <p>Halo ${fullName},</p>
         <p>Selamat! Lamaran Anda untuk posisi <strong>${dataLamaran.posisi}</strong> di <strong>Humic Engineering</strong> telah diterima.</p>
         <p>Tim kami sangat terkesan dengan profil dan kualifikasi Anda. Kami akan segera menghubungi Anda terkait tahapan selanjutnya.</p>
         <p>Terima kasih telah melamar dan kami menantikan kerja sama yang luar biasa bersama Anda.</p>
       `
       : `
-        <p>Halo ${dataLamaran.nama_depan} ${dataLamaran.nama_belakang},</p>
+        <p>Halo ${fullName},</p>
         <p>Terima kasih atas lamaran Anda untuk posisi <strong>${dataLamaran.posisi}</strong> di <strong>Humic Engineering</strong>.</p>
         <p>Setelah mempertimbangkan secara seksama, kami memutuskan untuk tidak melanjutkan proses lamaran Anda ke tahap berikutnya.</p>
         <p>Jangan berkecil hati—kami sangat menghargai waktu dan usaha Anda. Kami mendorong Anda untuk terus mencoba dan semoga sukses dalam perjalanan karier Anda.</p>
