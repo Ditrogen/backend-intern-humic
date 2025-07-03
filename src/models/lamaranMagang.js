@@ -120,6 +120,13 @@ const getAllExportData = async () => {
 return db.execute(SQLQuery);
 }
 
+const deleteAllLamaranMagang = async (id_lamaran_magang) => {
+  const SQLQuery = "DELETE FROM lamaran_magang";
+  return db.execute(SQLQuery);
+};
+
+
+
 module.exports = {
   addlowonganMagang,
   getAllLamaranMagang,
@@ -127,4 +134,5 @@ module.exports = {
   updateStatusLamaran,
   getDetailLamaranById,
   getAllExportData,
+  deleteAllLamaranMagang 
 };

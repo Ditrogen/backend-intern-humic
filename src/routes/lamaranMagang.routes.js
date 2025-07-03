@@ -301,4 +301,6 @@ router.patch(
  */
 router.get('/export', verifyJWT, lamaranMagangController.exportDataToExcel);
 
+router.delete("/delete", verifyJWT, lamaranMagangController.deleteAllLamaranMagang);
+
 module.exports = router;
