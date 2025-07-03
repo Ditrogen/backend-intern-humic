@@ -45,9 +45,15 @@ const getMahasiswaByEmail = (email) => {
   return db.execute(SQLQuery, [email]);
 };
 
+const deleteAllMahasiswa = async () => {
+  const SQLQuery = "DELETE FROM mahasiswa";
+  return db.execute(SQLQuery);
+};
+
 module.exports = {
   addMahasiswa,
   getAllMahasiswa,
   getMahasiswaById,
   getMahasiswaByEmail,
+  deleteAllMahasiswa
 };
