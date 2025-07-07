@@ -151,18 +151,10 @@ router.post(
   multer.fields([
     { name: 'cv', maxCount: 1 },
     { name: 'portofolio', maxCount: 1 },
-  ]),
+  ]), 
+  verifyRecaptcha, // multer dulu baru verify gegara datanya mesti diparse sama multer
   lamaranMagangController.addLamaranMagang
 );
-
-// router.post(
-//   '/add/:id_lowongan_magang', verifyRecaptcha ,
-//   multer.fields([
-//     { name: 'cv', maxCount: 1 },
-//     { name: 'portofolio', maxCount: 1 },
-//   ]),
-//   lamaranMagangController.addLamaranMagang
-// );
 
 /**
  * @swagger
