@@ -26,8 +26,6 @@ const addLowonganMagang = async (req, res) => {
   const now = new Date();
   const tgl_awal = new Date(durasi_awal);
   const tgl_akhir = new Date(durasi_akhir);
-  console.log(now, tgl_awal, tgl_akhir)
-  console.log(now >= tgl_awal && now <= tgl_akhir)
 
   let status_lowongan = "ditutup";
   if (now >= tgl_awal && now <= tgl_akhir){
@@ -135,8 +133,6 @@ const getLowonganMagangById = async (req, res) => {
     const now = new Date();
     const tgl_awal = new Date(lowonganMagang[0].durasi_awal);
     const tgl_akhir = new Date(lowonganMagang[0].durasi_akhir);
-    console.log(now, tgl_awal, tgl_akhir)
-    console.log(now >= tgl_awal && now <= tgl_akhir)
 
     let status_lowongan = "ditutup";
     if (now >= tgl_awal && now <= tgl_akhir){
@@ -175,8 +171,7 @@ const getLowonganByKelompokPeminatan = async (req, res) => {
       const durasiAwal = new Date(item.durasi_awal);
       const durasiAkhir = new Date(item.durasi_akhir);
 
-      const status =
-        now >= durasiAwal && now <= durasiAkhir ? "dibuka" : "ditutup";
+      const status = now >= durasiAwal && now <= durasiAkhir ? "dibuka" : "ditutup";
 
       return {
         ...item,
