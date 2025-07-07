@@ -128,7 +128,7 @@ const updatePartnership = async (req, res) => {
       nama_partner: nama_partner?.trim() ? nama_partner : currentData.nama_partner,
       image_path,
     };
-    console.log("form:",nama_partner, "db", currentData.nama_partner, "updated",updatedData.nama_partner)
+    //console.log("form:",nama_partner, "db", currentData.nama_partner, "updated",updatedData.nama_partner)
 
 
     await partnershipModel.updatePartnership(

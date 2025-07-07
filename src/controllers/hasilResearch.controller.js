@@ -69,9 +69,7 @@ const deleteHasilResearch = async (req, res) => {
           });
         }
 
-        console.log(hasilResearch)
         const image_path = hasilResearch[0].image_path;
-        console.log(image_path)
 
         if (image_path) {
           const fileName = path.basename(image_path);
