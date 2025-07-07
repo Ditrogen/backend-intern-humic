@@ -4,7 +4,11 @@ const fs = require("fs").promises;
 const path = require('path');
 const { deleteFileIfExists } = require('../config/fileHelper'); // ganti sesuai lokasi fileHelper.js
 
-
+// Ini komentar buat penerus pengembangan proyek ini
+// di db, field status_lowongan cuman di define pas add lowongan doang
+// jadi pas dia get data lowongan, field status_lowongan bakal di override
+// kenapa gk diapus aja fieldnya? Pertanyaan yang bagus
+// itu aja fyi-nya
 const addLowonganMagang = async (req, res) => {
   const {
     posisi,
@@ -18,7 +22,18 @@ const addLowonganMagang = async (req, res) => {
     paid,
   } = req.body;
   const require = req.role;
-  const status_lowongan = "dibuka";
+
+  const now = new Date();
+  const tgl_awal = new Date(durasi_awal);
+  const tgl_akhir = new Date(durasi_akhir);
+  console.log(now, tgl_awal, tgl_akhir)
+  console.log(now >= tgl_awal && now <= tgl_akhir)
+
+  let status_lowongan = "ditutup";
+  if (now >= tgl_awal && now <= tgl_akhir){
+    status_lowongan = "dibuka";
+  }
+
   const image_path = req.file;
   try {
     if (require === "admin") {
@@ -76,9 +91,24 @@ const getAllLowonganMagang = async (req, res) => {
         message: "No internship vacancies found",
       });
     }
+
+    const now = new Date();
+
+    const updatedLowongan = lowonganMagang.map(item => {
+      const durasiAwal = new Date(item.durasi_awal);
+      const durasiAkhir = new Date(item.durasi_akhir);
+
+      const status = now >= durasiAwal && now <= durasiAkhir ? "dibuka" : "ditutup";
+
+      return {
+        ...item,
+        status_lowongan: status,
+      };
+    });
+
     return res.status(200).json({
       message: "Successfully retrieved all internship vacancies",
-      data: lowonganMagang,
+      data: updatedLowongan,
     });
   } catch (error) {
     return res.status(500).json({
@@ -101,6 +131,19 @@ const getLowonganMagangById = async (req, res) => {
         message: "Internship vacancy not found",
       });
     }
+
+    const now = new Date();
+    const tgl_awal = new Date(lowonganMagang[0].durasi_awal);
+    const tgl_akhir = new Date(lowonganMagang[0].durasi_akhir);
+    console.log(now, tgl_awal, tgl_akhir)
+    console.log(now >= tgl_awal && now <= tgl_akhir)
+
+    let status_lowongan = "ditutup";
+    if (now >= tgl_awal && now <= tgl_akhir){
+      status_lowongan = "dibuka";
+    }
+    lowonganMagang[0].status_lowongan = status_lowongan
+
     return res.status(200).json({
       message: "Successfully retrieved internship vacancy by ID",
       data: lowonganMagang[0],
@@ -125,9 +168,25 @@ const getLowonganByKelompokPeminatan = async (req, res) => {
         message: "No internship vacancies found for this specialization group",
       });
     }
+
+    const now = new Date();
+
+    const updatedLowongan = lowonganMagang.map(item => {
+      const durasiAwal = new Date(item.durasi_awal);
+      const durasiAkhir = new Date(item.durasi_akhir);
+
+      const status =
+        now >= durasiAwal && now <= durasiAkhir ? "dibuka" : "ditutup";
+
+      return {
+        ...item,
+        status_lowongan: status,
+      };
+    });
+
     return res.status(200).json({
       message: "Successfully retrieved internship vacancies by specialization group",
-      data: lowonganMagang,
+      data: updatedLowongan,
     });
   } catch (error) {
     console.error(error);
