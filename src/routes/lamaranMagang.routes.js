@@ -147,7 +147,87 @@ router.post(
     { name: 'cv', maxCount: 1 },
     { name: 'portofolio', maxCount: 1 },
   ]), 
-  //verifyRecaptcha, // multer dulu baru verify gegara datanya mesti diparse sama multer
+  verifyRecaptcha, // multer dulu baru verify gegara datanya mesti diparse sama multer
+  lamaranMagangController.addLamaranMagang
+);
+
+/**
+ * @swagger
+ * /lamaran-magang-api/add-mobile/{id_lowongan_magang}:
+ *   post:
+ *     summary: Create a new lamaran magang (internship application) without recaptcha
+ *     tags: [Lamaran Magang]
+ *     parameters:
+ *       - in: path
+ *         name: id_lowongan_magang
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID (string) of the lowongan magang (internship)
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nama_depan:
+ *                 type: string
+ *               nama_belakang:
+ *                 type: string
+ *                 nullable: true
+ *                 description: Optional, can be left empty
+ *               email:
+ *                 type: string
+ *               kontak:
+ *                 type: string
+ *               jurusan:
+ *                 type: string
+ *               motivasi:
+ *                 type: string
+ *               relevant_skills:
+ *                 type: string
+ *               cv:
+ *                 type: string
+ *                 format: binary
+ *               portofolio:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Lamaran magang created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Internship application submitted successfully."
+ *                 data:
+ *                   $ref: '#/components/schemas/LamaranMagang'
+ *       404:
+ *         description: lowongan_magang id not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Internship vacancy not found"
+ *                 error:
+ *                   type: array
+ *                   example: ["invalid-input-response"]
+ *       500:
+ *         description: Internal server error
+ */
+router.post(
+  '/add-mobile/:id_lowongan_magang',
+  multer.fields([
+    { name: 'cv', maxCount: 1 },
+    { name: 'portofolio', maxCount: 1 },
+  ]), 
   lamaranMagangController.addLamaranMagang
 );
 
