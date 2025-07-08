@@ -15,7 +15,6 @@ const addLamaranMagang = async (req, res) => {
     email,
     kontak,
     jurusan,
-    angkatan,
     motivasi,
     relevant_skills,
   } = req.body;
@@ -47,7 +46,6 @@ const addLamaranMagang = async (req, res) => {
       email,
       kontak,
       jurusan,
-      angkatan,
       role,
       cv_path,
       portofolio_path,
@@ -61,7 +59,6 @@ const addLamaranMagang = async (req, res) => {
       email,
       kontak,
       jurusan,
-      angkatan,
       role,
       cv_path,
       portofolio_path,
