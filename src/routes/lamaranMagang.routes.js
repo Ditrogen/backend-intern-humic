@@ -147,7 +147,7 @@ router.post(
     { name: 'cv', maxCount: 1 },
     { name: 'portofolio', maxCount: 1 },
   ]), 
-  //verifyRecaptcha, // multer dulu baru verify gegara datanya mesti diparse sama multer
+  verifyRecaptcha, // multer dulu baru verify gegara datanya mesti diparse sama multer
   lamaranMagangController.addLamaranMagang
 );
 
