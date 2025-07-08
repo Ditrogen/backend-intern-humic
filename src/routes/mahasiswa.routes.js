@@ -34,9 +34,6 @@ const verifyJWT = require('../middleware/verifyJWT');
  *         jurusan:
  *           type: string
  *           example: "Informatika"
- *         angkatan:
- *           type: integer
- *           example: 2022
  *         role:
  *           type: string
  *           example: "mahasiswa"
