@@ -71,7 +71,6 @@ const getDetailLamaranById = async (idLamaran) => {
         m.email,
         m.kontak,
         m.jurusan,
-        m.angkatan,
         m.cv_path,
         m.portofolio_path,
         m.motivasi,
@@ -107,7 +106,6 @@ const getAllExportData = async () => {
     m.email,
     m.kontak,
     m.jurusan,
-    m.angkatan,
     l.posisi,
     l.kelompok_peminatan
     FROM 

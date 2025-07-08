@@ -39,9 +39,6 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *         jurusan:
  *           type: string
  *           example: "Informatika"
- *         angkatan:
- *           type: integer
- *           example: 2022
  *         motivasi:
  *           type: string
  *           example: "I want to gain experience in back end development."
@@ -105,8 +102,6 @@ const verifyRecaptcha = require('../middleware/recaptcha');
  *                 type: string
  *               jurusan:
  *                 type: string
- *               angkatan:
- *                 type: integer
  *               motivasi:
  *                 type: string
  *               relevant_skills:
@@ -152,7 +147,7 @@ router.post(
     { name: 'cv', maxCount: 1 },
     { name: 'portofolio', maxCount: 1 },
   ]), 
-  verifyRecaptcha, // multer dulu baru verify gegara datanya mesti diparse sama multer
+  //verifyRecaptcha, // multer dulu baru verify gegara datanya mesti diparse sama multer
   lamaranMagangController.addLamaranMagang
 );
 

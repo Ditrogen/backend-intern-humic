@@ -6,7 +6,6 @@ const addMahasiswa = (
   email,
   kontak,
   jurusan,
-  angkatan,
   role,
   cv_path,
   portofolio_path,
@@ -14,14 +13,13 @@ const addMahasiswa = (
   relevant_skills
 ) => {
   const SQLQuery =
-    "INSERT INTO mahasiswa (nama_depan, nama_belakang, email, kontak, jurusan, angkatan, role, cv_path, portofolio_path, motivasi, relevant_skills) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO mahasiswa (nama_depan, nama_belakang, email, kontak, jurusan, role, cv_path, portofolio_path, motivasi, relevant_skills) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   return db.execute(SQLQuery, [
     nama_depan,
     nama_belakang,
     email,
     kontak,
     jurusan,
-    angkatan,
     role,
     cv_path,
     portofolio_path,
