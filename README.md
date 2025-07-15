@@ -26,7 +26,7 @@ Project intern HUMIC Batch 4 Website Penerimaan Magang
 
 ---
 
-## Database Structure
+## Database Structure (outdated)
 
 ![Entity Relationship Diagram](https://raw.githubusercontent.com/Ditrogen/backend-intern-humic/main/src/docs/ERD.png)
 The database consists of the following tables:
@@ -39,5 +39,27 @@ The database consists of the following tables:
 6. **partnership**: Data partner/institusi yang bekerja sama.
 ---
 
+## Instalasi
+### Clone Repository
+```
+git clone https://github.com/Ditrogen/backend-intern-humic.git
+```
+Jangan lupa untuk masuk ke direktori projectnya.
+```
+cd backend-intern-humic
+```
+### Install Dependencies
+```
+npm install
+```
+### Running the Backend
+Mohon perhatian penggunaan 'starts' memakai huruf 's'.
+```
+npm starts
+```
+### Testing the API
+Untuk melihat seluruh endpointnya, gunakan /api-docs
+
+---
 ## License
 This API is licensed under the [MIT License](https://opensource.org/licenses/MIT).
