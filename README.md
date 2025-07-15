@@ -54,11 +54,12 @@ npm install
 ```
 ### Running the Backend
 Mohon perhatian penggunaan 'starts' memakai huruf 's'.
+Kata 'start' digunakan untuk development.
 ```
 npm starts
 ```
 ### Testing the API
-Untuk melihat seluruh endpointnya, gunakan /api-docs
+Untuk melihat seluruh endpointnya, gunakan /api-docs, pastika NODE_ENV bukan production dan SWAGGER_ENABLED bernilai true
 
 ---
 ## License
