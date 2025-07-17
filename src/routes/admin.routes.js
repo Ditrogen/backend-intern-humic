@@ -76,6 +76,8 @@ router.post("/add",verifyJWT , adminController.addAdmin);
  *   get:
  *     summary: Retrieve all admin account
  *     tags: [Admin]
+ *     security:
+ *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: Successfully retrieved all admins
@@ -88,7 +90,7 @@ router.post("/add",verifyJWT , adminController.addAdmin);
  *       500:
  *         description: Internal server error
  */
-router.get("/get", adminController.getAdmin);
+router.get("/get", verifyJWT, adminController.getAdmin);
 
 
 
